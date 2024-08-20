@@ -30,13 +30,14 @@ jobs:
         AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}  # Your S3 Bucket name
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: 'us-east-1'  # Your AWS Region
         SOURCE_DIR: './dist'
 
     - name: Invalidate CloudFront Distribution
       uses: chetan/invalidate-cloudfront-action@v1
       env:
+        DISTRIBUTION : ${{ secrets.DISTRIBUTION_ID }}
         DISTRIBUTION_ID: ${{ secrets.DISTRIBUTION_ID }}  # Your CloudFront distribution ID
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_REGION: 'us-east-1'  # Your AWS Region
         PATHS: '/'  # Paths to invalidate, typically '/'
